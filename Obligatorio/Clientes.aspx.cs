@@ -50,9 +50,9 @@ namespace Obligatorio
 
         protected void RowDeletingEvent(object sender, GridViewDeleteEventArgs e)
         {
-            int rowIndexCli = e.RowIndex;                                                       //indice de la fila a eliminar 
-            string clienteCI = tablaClientes.DataKeys[rowIndexCli].Values[0].ToString();        //CI del cliente a eliminar (por falta de ID)
-            Cliente cliente = BaseDeDatos.listaClientes.FirstOrDefault(c => c.CI == clienteCI); //busca el CI en la base de datos de clientes
+            int rowIndexCli = e.RowIndex;                                                       
+            string clienteCI = tablaClientes.DataKeys[rowIndexCli].Values[0].ToString();        
+            Cliente cliente = BaseDeDatos.listaClientes.FirstOrDefault(c => c.CI == clienteCI); 
             if( cliente != null )
             {
                 BaseDeDatos.listaClientes.Remove(cliente);
