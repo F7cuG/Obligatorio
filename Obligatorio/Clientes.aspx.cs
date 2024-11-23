@@ -74,7 +74,6 @@ namespace Obligatorio
 
         protected void RowUpdatingEvent(object sender, GridViewUpdateEventArgs e)
         {
-            Page.Validate("EditValidationGroup");
             int rowIndexCli = e.RowIndex;
 
             if (tablaClientes.DataKeys != null && tablaClientes.DataKeys[rowIndexCli] != null)
@@ -85,41 +84,34 @@ namespace Obligatorio
                 if (cliente != null)
                 {
                     GridViewRow row = tablaClientes.Rows[rowIndexCli];
-                   
-                    TextBox a = (TextBox)row.Cells[1].Controls[0];
-                    TextBox b = (TextBox)row.Cells[2].Controls[0];
-                    TextBox c = (TextBox)row.Cells[3].Controls[0];
-                    TextBox d = (TextBox)row.Cells[4].Controls[0];
-                    TextBox f = (TextBox)row.Cells[5].Controls[0];
-                    TextBox g = (TextBox)row.Cells[6].Controls[0];
 
-                    
-                    cliente.Nombre = a.Text.Trim();
-                    cliente.Apellido = b.Text.Trim();
-                    cliente.CI = c.Text.Trim();
-                    cliente.Direccion = d.Text.Trim();
-                    cliente.Email = f.Text.Trim();
+                    TextBox txtNombre = (TextBox)row.Cells[1].Controls[0];
+                    TextBox txtApellido = (TextBox)row.Cells[2].Controls[0];
+                    TextBox txtDireccion = (TextBox)row.Cells[4].Controls[0];
+                    TextBox txtTelefono = (TextBox)row.Cells[5].Controls[0];
+                    TextBox txtEmail = (TextBox)row.Cells[6].Controls[0];
 
-                    
-                    long telefono;
-                    if (long.TryParse(g.Text.Trim(), out telefono))
+                    cliente.Nombre = txtNombre.Text.Trim();
+                    cliente.Apellido = txtApellido.Text.Trim();
+                    cliente.Direccion = txtDireccion.Text.Trim();
+                    cliente.Email = txtEmail.Text.Trim();
+
+                    if (long.TryParse(txtTelefono.Text.Trim(), out long telefono))
                     {
-                        cliente.Telefono = telefono; 
+                        cliente.Telefono = telefono;
+                        lblMensaje.Text = "Cliente actualizado correctamente.";
                     }
                     else
                     {
                         lblMensaje.Text = "El teléfono ingresado no es un número válido.";
-                        return; 
+                        return;
                     }
-
-                    lblMensaje.Text = "Cliente actualizado correctamente.";
                 }
                 else
                 {
                     lblMensaje.Text = "No se encontró ningún cliente con el CI ingresado.";
                 }
 
-                
                 tablaClientes.EditIndex = -1;
                 CargarTablaClientes(sender, e);
             }
@@ -128,6 +120,7 @@ namespace Obligatorio
                 lblMensaje.Text = "Error: no se pudo obtener la clave de la fila seleccionada.";
             }
         }
+
 
 
         protected void RowCancelingEditingEvent(object sender, GridViewCancelEditEventArgs e)

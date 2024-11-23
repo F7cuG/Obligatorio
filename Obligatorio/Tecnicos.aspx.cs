@@ -95,12 +95,10 @@ namespace Obligatorio
 
                     TextBox a = (TextBox)row.Cells[1].Controls[0];
                     TextBox b = (TextBox)row.Cells[2].Controls[0];
-                    TextBox c = (TextBox)row.Cells[3].Controls[0];
                     TextBox d = (TextBox)row.Cells[4].Controls[0];
 
                     tecnico.Nombre = a.Text.Trim();
                     tecnico.Apellido = b.Text.Trim();
-                    tecnico.CI = c.Text.Trim();
                     tecnico.Especialidad = d.Text.Trim();
 
                     lblMensaje.Text = "Tecnico actualizado correctamente";

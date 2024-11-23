@@ -69,9 +69,9 @@
             <asp:GridView ID="tablaClientes" runat="server" AutoGenerateColumns="false" OnRowUpdating="RowUpdatingEvent" OnRowCancelingEdit="RowCancelingEditingEvent" OnRowEditing ="RowEditingEvent" OnRowDeleting="RowDeletingEvent" DataKeyNames="CI" CssClass="styled-gridview">
                 <Columns>
                     <asp:CommandField showEditButton ="true" ShowDeleteButton="true"/>
-                    <asp:BoundField DataField="CI" HeaderText="CI"/>
                     <asp:BoundField DataField="Nombre" HeaderText="Nombre"/>
                     <asp:BoundField DataField="Apellido" HeaderText="Apellido"/>
+                    <asp:BoundField DataField="CI" HeaderText="CI" ReadOnly="true"/>
                     <asp:BoundField DataField="Direccion" HeaderText="Dirección"/>
                     <asp:BoundField DataField="Telefono" HeaderText="Teléfono"/>
                     <asp:BoundField DataField="Email" HeaderText="Email"/>
