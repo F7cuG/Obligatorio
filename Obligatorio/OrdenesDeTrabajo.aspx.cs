@@ -46,14 +46,6 @@ namespace Obligatorio
         protected void CrearYguardarOrden(object sender, EventArgs e)
         {
             int numeroOrden = int.Parse(tbNumOrd.Text);
-            if(ddlClientes.SelectedIndex == -1)
-            {
-                lblMensaje.Text = "Debe elegir un cliente";
-            }
-            if (ddlTecnicos.SelectedIndex == -1)
-            {
-                lblMensaje.Text = "Debe elegir un tecnico";
-            }
 
             Cliente clienteSeleccionado = BaseDeDatos.listaClientes.FirstOrDefault(c => c.CI.ToString() == ddlClientes.SelectedValue);
             Tecnico tecnicoSeleccionado = BaseDeDatos.listaTecnicos.FirstOrDefault(c => c.CI.ToString() == ddlTecnicos.SelectedValue);
@@ -61,10 +53,23 @@ namespace Obligatorio
             if (clienteSeleccionado == null || tecnicoSeleccionado == null)
             {
                 lblMensaje.Text = "Debe seleccionar un cliente y/o tecnico";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
                 return;
             }
 
-            
+            if (string.IsNullOrEmpty(ddlEstado.SelectedValue))
+            {
+                lblMensaje.Text = "Debe seleccionar un estado para la orden";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+
+            if (BaseDeDatos.listaClientes == null || !BaseDeDatos.listaClientes.Any())
+            {
+                lblMensaje.Text = "No hay clientes disponibles para seleccionar";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
 
             OrdenDeTrabajo ordenDeTrabajo = new OrdenDeTrabajo(
                 numeroOrden,
@@ -76,8 +81,6 @@ namespace Obligatorio
                 tbComOrd.Text
 
             );
-
-            lblMensaje.Text = "Orden creada exitosamente";
 
             BaseDeDatos.listaOrdenesDeTrabajo.Add(ordenDeTrabajo);
             lblMensaje.Text = "Orden creada exitosamente";
@@ -100,6 +103,40 @@ namespace Obligatorio
             tablaODT.DataSource = BaseDeDatos.listaOrdenesDeTrabajo;
             tablaODT.DataBind();
         }
+
+        protected void BuscarOrden(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbBuscarNumOrd.Text) || !int.TryParse(tbBuscarNumOrd.Text, out int numeroOrden))
+            {
+                lblResultadoBusqueda.Text = "Por favor, ingrese un número de orden válido.";
+                lblResultadoBusqueda.ForeColor = System.Drawing.Color.Red;
+                detalleOrden.Visible = false;
+                return;
+            }
+
+            OrdenDeTrabajo orden = BaseDeDatos.listaOrdenesDeTrabajo.FirstOrDefault(o => o.NumeroOrden == numeroOrden);
+
+            if (orden == null)
+            {
+                lblResultadoBusqueda.Text = "No se encontró ninguna orden con el número ingresado.";
+                lblResultadoBusqueda.ForeColor = System.Drawing.Color.Red;
+                detalleOrden.Visible = false;
+            }
+            else
+            {
+                lblEstado.Text = orden.Estado;
+                lblCliente.Text = $"{orden.ClienteOrden.Nombre} {orden.ClienteOrden.Apellido} (CI: {orden.ClienteOrden.CI})";
+                lblTecnico.Text = $"{orden.TecnicoOrden.Nombre} {orden.TecnicoOrden.Apellido} (CI: {orden.TecnicoOrden.CI})";
+                lblDescripcion.Text = orden.DescripcionProblema;
+                lblFecha.Text = orden.FechaCreacion.ToString("dd-MM-yyyy");
+                lblComentarios.Text = string.IsNullOrEmpty(orden.ListaComentarios) ? "Sin comentarios." : orden.ListaComentarios;
+
+                lblResultadoBusqueda.Text = "Orden encontrada:";
+                lblResultadoBusqueda.ForeColor = System.Drawing.Color.Green;
+                detalleOrden.Visible = true;
+            }
+        }
+
     }
 
 } 

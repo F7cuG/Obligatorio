@@ -7,7 +7,7 @@
     </div>
     <div>
         <label>Numero de orden</label>
-        <asp:TextBox runat="server" ID="tbNumOrd" />
+        <asp:TextBox runat="server" ID="tbNumOrd"/> //CONVERTIR A LABEL
         <br />
         <label>Cliente</label>
         <asp:DropDownlist ID="ddlClientes" runat="server"/>
@@ -40,16 +40,16 @@
 
      <h2>Lista de ordenes</h2>
  
-     <asp:GridView ID="tablaODT" runat="server" AutoGenerateColumns="false" DataKeyNames="CI" CssClass="styled-gridview">
+     <asp:GridView ID="tablaODT" runat="server" AutoGenerateColumns="false" DataKeyNames="NumeroOrden" CssClass="styled-gridview">
          <Columns>
              <asp:CommandField showEditButton ="true" ShowDeleteButton="true"/>
-             <asp:BoundField DataField="NumeroDeOrden" HeaderText="Numero de orden"/>
-             <asp:BoundField DataField="ClienteOrden" HeaderText="Cliente"/>
-             <asp:BoundField DataField="TecnicoOrden" HeaderText="Tecnico"/>
-             <asp:BoundField DataField="DescripcionOrden" HeaderText="Descripcion del problema"/>
+             <asp:BoundField DataField="NumeroOrden" HeaderText="Numero de orden"/>
+             <asp:BoundField DataField="ClienteOrden.nombre" HeaderText="Cliente"/>
+             <asp:BoundField DataField="TecnicoOrden.nombre" HeaderText="Tecnico"/>
+             <asp:BoundField DataField="DescripcionProblema" HeaderText="Descripcion del problema"/>
              <asp:BoundField DataField="FechaCreacion" HeaderText="Fecha de creacion"/>
              <asp:BoundField DataField="Estado" HeaderText="Estado"/>
-             <asp:BoundField DataField="Comentarios" HeaderText="Comentarios del tecnico"/>
+             <asp:BoundField DataField="ListaComentarios" HeaderText="Comentarios del tecnico"/>
          </Columns>
      </asp:GridView>
 

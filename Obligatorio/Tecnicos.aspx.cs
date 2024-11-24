@@ -9,6 +9,30 @@ namespace Obligatorio
 {
     public partial class Tecnicos : System.Web.UI.Page
     {
+        private bool ValidarCedulaUruguaya(string ci)
+        {
+            ci = ci.Replace(".", "").Replace("-", "");
+
+            if (ci.Length < 7 || ci.Length > 8 || !ci.All(char.IsDigit))
+            {
+                return false;
+            }
+
+            ci = ci.PadLeft(8, '0');
+
+            int[] verifNums = { 2, 9, 8, 7, 6, 3, 4 };
+            int suma = 0;
+
+            for (int i = 0; i < 7; i++)
+            {
+                suma += (ci[i] - '0') * verifNums[i];
+            }
+
+            int codVerif = (10 - (suma % 10)) % 10;
+
+            int digVerif = ci[7] - '0';
+            return codVerif == digVerif;
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -16,21 +40,29 @@ namespace Obligatorio
                 CargarTablaTecnicos(sender, e);
             }
         }
-       /* protected void cmdTecnico_Click(object sender, EventArgs e)
-        {
-            Tecnico tecnico = new Tecnico();
-
-            tecnico.Nombre = tb.Text;
-            tecnico.Apellido = tbApellidoTec.Text;
-            tecnico.CI = tbCITec.Text;
-            tecnico.Especialidad = tbEspTec.Text;
-        }   //me tira un error que dice que no le estoy poniendo un valor al parametro nombre
-    
-       */
+      
          protected void CrearYguardarTecnico(object sender, EventArgs e)
          {
+            string nombre = tbNomTec.Text.Trim();
+            string apellido = tbApTec.Text.Trim();
+            string ci = tbCiTec.Text.Trim();
+            string especialidad = tbEspTec.Text.Trim();
 
-             Tecnico tecnico = new Tecnico(
+            if (!ValidarCedulaUruguaya(ci))
+            {
+                lblMensaje.Text = "El CI ingresado no es válido.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+
+            if (string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(apellido))
+            {
+                lblMensaje.Text = "Debe ingresar un nombre y apellido";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+
+            Tecnico tecnico = new Tecnico(
                  tbNomTec.Text,
                  tbApTec.Text,
                  tbCiTec.Text,

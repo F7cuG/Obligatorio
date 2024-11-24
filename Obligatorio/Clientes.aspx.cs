@@ -14,34 +14,101 @@ namespace Obligatorio
         {
             
         }
+
+        private bool ValidarCedulaUruguaya(string ci)
+        {
+            ci = ci.Replace(".", "").Replace("-", "");
+
+            if (ci.Length < 7 || ci.Length > 8 || !ci.All(char.IsDigit))
+            {
+                return false;
+            }
+
+            ci = ci.PadLeft(8, '0');
+
+            int[] verNums = { 2, 9, 8, 7, 6, 3, 4 };
+            int suma = 0;
+
+            for (int i = 0; i < 7; i++)
+            {
+                suma += (ci[i] - '0') * verNums[i];
+            }
+
+            int codVer = (10 - (suma % 10)) % 10;
+
+            int digVer = ci[7] - '0';
+            return codVer == digVer;
+        }
+
+
         protected void CrearYguardarCliente(object sender, EventArgs e)
         {
-            long telefono = long.Parse(tbTelCli.Text);
+            string nombre = tbNomCli.Text.Trim();
+            string apellido = tbApCli.Text.Trim();
+            string ci = tbCiCli.Text.Trim();
+            string direccion = tbDirCli.Text.Trim();
+            string email = tbEmailCli.Text.Trim();
+            string telefonoTexto = tbTelCli.Text.Trim();
+            long telefono;
+
+            if (string.IsNullOrWhiteSpace(nombre) || !nombre.All(char.IsLetter))
+            {
+                lblMensaje.Text = "El campo Nombre debe contener solo letras.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(apellido) || !apellido.All(char.IsLetter))
+            {
+                lblMensaje.Text = "El campo Apellido debe contener solo letras.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+
+            if (!ValidarCedulaUruguaya(ci))
+            {
+                lblMensaje.Text = "El CI ingresado no es válido.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(telefonoTexto) || !long.TryParse(telefonoTexto, out telefono))
+            {
+                lblMensaje.Text = "El campo Teléfono debe contener solo números.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(email) || !email.Contains("@") || !email.Contains("."))
+            {
+                lblMensaje.Text = "El campo Email debe ser una dirección de correo válida.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+
             Cliente cliente = new Cliente(
-                tbNomCli.Text,
-                tbApCli.Text,
-                tbCiCli.Text,
-                tbDirCli.Text,
-                telefono ,
-                tbEmailCli.Text
+                nombre,
+                apellido,
+                ci,
+                direccion,
+                telefono,
+                email
             );
 
             lblMensaje.Text = "Cliente creado exitosamente";
-
+            lblMensaje.ForeColor = System.Drawing.Color.Green;
             BaseDeDatos.listaClientes.Add(cliente);
-
-            tablaClientes.DataSource = BaseDeDatos.listaClientes; 
 
             CargarTablaClientes(null, EventArgs.Empty);
 
-            tbNomCli.Text = ""; 
+            tbNomCli.Text = "";
             tbApCli.Text = "";
             tbCiCli.Text = "";
             tbDirCli.Text = "";
             tbTelCli.Text = "";
             tbEmailCli.Text = "";
-
         }
+
         protected void CargarTablaClientes(object sender, EventArgs e)
         {
             tablaClientes.DataSource = BaseDeDatos.listaClientes;
