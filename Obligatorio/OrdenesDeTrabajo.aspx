@@ -17,7 +17,7 @@
         <br/>
         <label>Descripcion del problema</label>
         <asp:TextBox runat="server" Placeholder="Ingrese descripcion del problema" ID="tbDescOrd" />
-         <asp:RequiredFieldValidator runat="server" controlToValidate="tbDescOrd" InitialValue="" ErrorMessage="Debe agregar una descripcion del problema" ForeColor="Red"/>
+        <asp:RequiredFieldValidator runat="server" ControlToValidate="tbDescOrd" ErrorMessage="Debe agregar una descripción del problema" ForeColor="Red" ValidationGroup="CrearOrden"/>
         <br/>
         <label>Fecha</label>
         <asp:TextBox runat="server" ID="tbFechaOrd"/>
@@ -35,8 +35,31 @@
     </div>
 
     <div>
-        <asp:button runat="server" text="Guardar" OnClick="CrearYguardarOrden" />
+        <asp:Button runat="server" Text="Guardar" OnClick="CrearYguardarOrden" ValidationGroup="CrearOrden"/>
     </div>
+
+    <h2>Búsqueda de órdenes</h2>
+    <div>
+        <label>Número de orden:</label>
+        <asp:TextBox ID="tbBuscarNumOrd" runat="server" Placeholder="Ingrese número de orden" />
+        <asp:Button runat="server" Text="Buscar" OnClick="BuscarOrden" ValidationGroup="BusquedaOrdenes" />
+
+    </div>
+    <br />
+
+<div>
+    <asp:Label ID="lblResultadoBusqueda" runat="server" ForeColor="Blue"></asp:Label>
+    <div id="detalleOrden" runat="server" visible="false">
+        <h3>Detalles de la orden:</h3>
+        <p><strong>Estado:</strong> <asp:Label ID="lblEstado" runat="server" /></p>
+        <p><strong>Cliente:</strong> <asp:Label ID="lblCliente" runat="server" /></p>
+        <p><strong>Técnico:</strong> <asp:Label ID="lblTecnico" runat="server" /></p>
+        <p><strong>Descripción del problema:</strong> <asp:Label ID="lblDescripcion" runat="server" /></p>
+        <p><strong>Fecha de creación:</strong> <asp:Label ID="lblFecha" runat="server" /></p>
+        <p><strong>Comentarios:</strong> <asp:Label ID="lblComentarios" runat="server" /></p>
+    </div>
+</div>
+
 
      <h2>Lista de ordenes</h2>
  

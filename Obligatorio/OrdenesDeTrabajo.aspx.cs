@@ -104,6 +104,7 @@ namespace Obligatorio
             tablaODT.DataBind();
         }
 
+        //BUSQUEDA DE ORDENES
         protected void BuscarOrden(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbBuscarNumOrd.Text) || !int.TryParse(tbBuscarNumOrd.Text, out int numeroOrden))
@@ -125,11 +126,21 @@ namespace Obligatorio
             else
             {
                 lblEstado.Text = orden.Estado;
-                lblCliente.Text = $"{orden.ClienteOrden.Nombre} {orden.ClienteOrden.Apellido} (CI: {orden.ClienteOrden.CI})";
-                lblTecnico.Text = $"{orden.TecnicoOrden.Nombre} {orden.TecnicoOrden.Apellido} (CI: {orden.TecnicoOrden.CI})";
+                lblCliente.Text = orden.ClienteOrden.Nombre + " " + orden.ClienteOrden.Apellido + " (CI: " + orden.ClienteOrden.CI + ")";
+                lblTecnico.Text = orden.TecnicoOrden.Nombre + " " + orden.TecnicoOrden.Apellido + " (CI: " + orden.TecnicoOrden.CI + ")";
                 lblDescripcion.Text = orden.DescripcionProblema;
                 lblFecha.Text = orden.FechaCreacion.ToString("dd-MM-yyyy");
-                lblComentarios.Text = string.IsNullOrEmpty(orden.ListaComentarios) ? "Sin comentarios." : orden.ListaComentarios;
+                lblComentarios.Text = string.IsNullOrEmpty(orden.ListaComentarios) ? "No hay comentarios." : orden.ListaComentarios;
+
+                if (string.IsNullOrEmpty(orden.ListaComentarios))
+                {
+                    lblComentarios.Text = "No hay comentarios.";
+                }
+                else
+                {
+                    lblComentarios.Text = orden.ListaComentarios;
+                }
+
 
                 lblResultadoBusqueda.Text = "Orden encontrada:";
                 lblResultadoBusqueda.ForeColor = System.Drawing.Color.Green;
