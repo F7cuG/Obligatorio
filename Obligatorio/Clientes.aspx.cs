@@ -12,8 +12,37 @@ namespace Obligatorio
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (!IsPostBack)
+            {
+                if (BaseDeDatos.listaClientes == null || !BaseDeDatos.listaClientes.Any())
+                {
+                    PreCargarClientes();
+                }
+
+                CargarTablaClientes(sender, e);
+            }
         }
+
+
+        private void PreCargarClientes()
+        {
+            Cliente clientePreCargado = new Cliente(
+                "Ana",           
+                "Gómez",         
+                "12345678",      
+                "18 de Julio 1234", 
+                987654321,       
+                "ana.gomez@example.com"
+            );
+
+            if (BaseDeDatos.listaClientes == null)
+            {
+                BaseDeDatos.listaClientes = new List<Cliente>();
+            }
+            BaseDeDatos.listaClientes.Add(clientePreCargado);
+        }
+
+        
 
         private bool ValidarCedulaUruguaya(string ci)
         {
@@ -152,18 +181,18 @@ namespace Obligatorio
                 {
                     GridViewRow row = tablaClientes.Rows[rowIndexCli];
 
-                    TextBox txtNombre = (TextBox)row.Cells[1].Controls[0];
-                    TextBox txtApellido = (TextBox)row.Cells[2].Controls[0];
-                    TextBox txtDireccion = (TextBox)row.Cells[4].Controls[0];
-                    TextBox txtTelefono = (TextBox)row.Cells[5].Controls[0];
-                    TextBox txtEmail = (TextBox)row.Cells[6].Controls[0];
+                    TextBox Nombre = (TextBox)row.Cells[1].Controls[0];
+                    TextBox Apellido = (TextBox)row.Cells[2].Controls[0];
+                    TextBox Direccion = (TextBox)row.Cells[4].Controls[0];
+                    TextBox Telefono = (TextBox)row.Cells[5].Controls[0];
+                    TextBox Email = (TextBox)row.Cells[6].Controls[0];
 
-                    cliente.Nombre = txtNombre.Text.Trim();
-                    cliente.Apellido = txtApellido.Text.Trim();
-                    cliente.Direccion = txtDireccion.Text.Trim();
-                    cliente.Email = txtEmail.Text.Trim();
+                    cliente.Nombre = Nombre.Text.Trim();
+                    cliente.Apellido = Apellido.Text.Trim();
+                    cliente.Direccion = Direccion.Text.Trim();
+                    cliente.Email = Email.Text.Trim();
 
-                    if (long.TryParse(txtTelefono.Text.Trim(), out long telefono))
+                    if (long.TryParse(Telefono.Text.Trim(), out long telefono))
                     {
                         cliente.Telefono = telefono;
                         lblMensaje.Text = "Cliente actualizado correctamente.";

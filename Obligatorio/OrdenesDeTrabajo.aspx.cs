@@ -10,7 +10,7 @@ namespace Obligatorio
     public partial class OrdenesDeTrabajo : System.Web.UI.Page
     {
         private static int contadorNumOrden = 1; //agregarle verificacion de secuencialidad y de uniquicidad
-    
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,17 +30,25 @@ namespace Obligatorio
 
                 tbFechaOrd.Text = DateTime.Now.ToString("dd-MM-yyyy");
             }
-        }
-
-        protected void GenerarNumOrden()
-        {
-            tbNumOrd.Text = contadorNumOrden.ToString();  //el contador aumenta cada vez que se carga la pagina [ARREGLAR]
-            contadorNumOrden++;
+            else
+            {
+                if (string.IsNullOrEmpty(tbFechaOrd.Text) && ViewState["FechaActual"] != null)
+                {
+                    tbFechaOrd.Text = ViewState["FechaActual"].ToString();
+                }
+            }
         }
 
         protected void seleccionarFecha(object sender, EventArgs e)
         {
-            tbFechaOrd.Text = DateTime.Now.ToString("dd,MM,yyyy");
+            tbFechaOrd.Text = DateTime.Now.ToString("dd-MM-yyyy");
+        }
+
+
+        protected void GenerarNumOrden()
+        {
+            tbNumOrd.Text = contadorNumOrden.ToString();
+            contadorNumOrden++;
         }
 
         protected void CrearYguardarOrden(object sender, EventArgs e)
@@ -76,7 +84,7 @@ namespace Obligatorio
                 clienteSeleccionado,
                 tecnicoSeleccionado,
                 tbDescOrd.Text,
-                DateTime.Parse(tbFechaOrd.Text),
+                DateTime.Now,
                 ddlEstado.SelectedItem.Text,
                 tbComOrd.Text
 
@@ -90,12 +98,8 @@ namespace Obligatorio
             CargarTablaODT(null, EventArgs.Empty);
 
             tbNumOrd.Text = "";
-            ddlClientes.Text = "";
-            ddlTecnicos.Text = "";
             tbDescOrd.Text = "";
             tbFechaOrd.Text = "";
-            ddlEstado.Text = "";
-
         }
 
         protected void CargarTablaODT(object sender, EventArgs e)
@@ -147,6 +151,140 @@ namespace Obligatorio
                 detalleOrden.Visible = true;
             }
         }
+
+        protected void RowDeletingEvent(object sender, GridViewDeleteEventArgs e)
+        {
+            int rowIndexODT = e.RowIndex;
+            string numOrden = tablaODT.DataKeys[rowIndexODT].Values[0].ToString();
+            int numeroOrden = int.Parse(numOrden);
+            OrdenDeTrabajo ordenDeTrabajo = BaseDeDatos.listaOrdenesDeTrabajo.FirstOrDefault(c => c.NumeroOrden == numeroOrden);
+
+            if (ordenDeTrabajo != null)
+            {
+                BaseDeDatos.listaOrdenesDeTrabajo.Remove(ordenDeTrabajo);
+                lblMensaje.Text = "Orden de trabajo eliminada correctamente";
+            }
+            else
+            {
+                lblMensaje.Text = "No se encontro ninguna orden de trabajo bajo ese numero";
+            }
+
+            CargarTablaODT(sender, e);
+        }
+        protected void RowEditingEvent(object sender, GridViewEditEventArgs e)
+        {
+            tablaODT.EditIndex = e.NewEditIndex;
+            CargarTablaODT(sender, e);
+        }
+
+        protected void RowUpdatingEvent(object sender, GridViewUpdateEventArgs e)
+        {
+            int rowIndexODT = e.RowIndex;
+
+            if (tablaODT.DataKeys != null && tablaODT.DataKeys[rowIndexODT] != null)
+            {
+                string numOrden = tablaODT.DataKeys[rowIndexODT].Values[0].ToString();
+                int numeroOrden = int.Parse(numOrden);
+                OrdenDeTrabajo ordenDeTrabajo = BaseDeDatos.listaOrdenesDeTrabajo.FirstOrDefault(c => c.NumeroOrden == numeroOrden);
+
+                if (ordenDeTrabajo != null)
+                {
+                    GridViewRow row = tablaODT.Rows[rowIndexODT];
+
+                    TextBox Cliente = (TextBox)row.Cells[2].Controls[0];
+                    TextBox Tecnico = (TextBox)row.Cells[3].Controls[0];
+                    TextBox DescProb = (TextBox)row.Cells[4].Controls[0];
+                    TextBox Estado = (TextBox)row.Cells[6].Controls[0];
+                    TextBox Comentarios = (TextBox)row.Cells[7].Controls[0];
+
+                    ordenDeTrabajo.ClienteOrden.Nombre = Cliente.Text.Trim();
+                    ordenDeTrabajo.TecnicoOrden.Nombre = Tecnico.Text.Trim();
+                    ordenDeTrabajo.DescripcionProblema = DescProb.Text.Trim();
+                    ordenDeTrabajo.Estado = Estado.Text.Trim();
+                    ordenDeTrabajo.ListaComentarios = Comentarios.Text.Trim();
+                }
+                else
+                {
+                    lblMensaje.Text = "No se encontró ningúna orden de trabajo con el numero indicado.";
+                }
+
+                tablaODT.EditIndex = -1;
+                CargarTablaODT(sender, e);
+            }
+            else
+            {
+                lblMensaje.Text = "Error: no se pudo obtener la clave de la fila seleccionada.";
+            }
+        }
+
+        protected void RowCancelingEditingEvent(object sender, GridViewCancelEditEventArgs e)
+        {
+            tablaODT.EditIndex = -1;
+            CargarTablaODT(sender, e);
+        }
+
+        protected void AgregarComentario(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(tbBuscarNumOrd.Text) && int.TryParse(tbBuscarNumOrd.Text, out int numeroOrden))
+            {
+                OrdenDeTrabajo orden = BaseDeDatos.listaOrdenesDeTrabajo.FirstOrDefault(o => o.NumeroOrden == numeroOrden);
+
+                if (orden != null)
+                {
+                    string nuevoComentario = tbComOrd.Text.Trim();
+                    if (!string.IsNullOrEmpty(nuevoComentario))
+                    {
+                        orden.ListaComentarios += (string.IsNullOrEmpty(orden.ListaComentarios) ? "" : "\n") + nuevoComentario;
+
+                        lblMensaje.Text = "Comentario agregado correctamente";
+                        lblMensaje.ForeColor = System.Drawing.Color.Green;
+                        tbComOrd.Text = "";
+                    }
+                    else
+                    {
+                        lblMensaje.Text = "Debe ingresar un comentario para agregar.";
+                        lblMensaje.ForeColor = System.Drawing.Color.Red;
+                    }
+                }
+                else
+                {
+                    lblMensaje.Text = "No se encontró la orden.";
+                    lblMensaje.ForeColor = System.Drawing.Color.Red;
+                }
+            }
+            else
+            {
+                lblMensaje.Text = "Por favor, ingrese un número de orden válido";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+            }
+        }
+
+
+        protected void MostrarComentarios(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(tbBuscarNumOrd.Text) && int.TryParse(tbBuscarNumOrd.Text, out int numeroOrden))
+            {
+                OrdenDeTrabajo orden = BaseDeDatos.listaOrdenesDeTrabajo.FirstOrDefault(o => o.NumeroOrden == numeroOrden);
+
+                if (orden != null)
+                {
+                    lblComentarios.Text = string.IsNullOrEmpty(orden.ListaComentarios) ? "No hay comentarios." : orden.ListaComentarios;
+                    lblComentarios.ForeColor = System.Drawing.Color.Black;
+                    detalleOrden.Visible = true;
+                }
+                else
+                {
+                    lblComentarios.Text = "No se encontró la orden.";
+                    lblComentarios.ForeColor = System.Drawing.Color.Red;
+                }
+            }
+            else
+            {
+                lblComentarios.Text = "Por favor, ingrese un número de orden válido.";
+                lblComentarios.ForeColor = System.Drawing.Color.Red;
+            }
+        }
+
 
     }
 

@@ -11,6 +11,7 @@ namespace Obligatorio
         public string Apellido { get; set; }
         public string CI { get; set; }
         public string Especialidad { get; set; }
+        public string NombreCompletoTec { get; set; }
 
         public Tecnico(string nombre, string apellido, string ci, string especialidad)
         {
@@ -18,11 +19,7 @@ namespace Obligatorio
             this.Apellido = apellido; 
             this.CI = ci;
             this.Especialidad = especialidad;
-        }
-
-        public string nombreCompletoTec
-        {
-            get {return Nombre + " " + Apellido;}
+            this.NombreCompletoTec = nombre + apellido;
         }
     }
 }

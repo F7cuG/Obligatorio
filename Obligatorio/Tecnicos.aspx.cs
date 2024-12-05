@@ -38,10 +38,41 @@ namespace Obligatorio
             if (!IsPostBack)
             {
                 CargarTablaTecnicos(sender, e);
+
+                if (BaseDeDatos.listaTecnicos == null || !BaseDeDatos.listaTecnicos.Any())
+                {
+                    PreCargarTecnicos();
+                }
+
+                CargarTablaTecnicos(sender, e);
             }
+
         }
-      
-         protected void CrearYguardarTecnico(object sender, EventArgs e)
+        private void PreCargarTecnicos()
+        {
+            // Precarga un técnico ejemplo
+            Tecnico tecnicoPreCargado = new Tecnico(
+                "Juan",          // Nombre
+                "Pérez",         // Apellido
+                "12345678",      // CI
+                "Electricista"   // Especialidad
+            );
+
+            // Asegúrate de inicializar la lista si es null
+            if (BaseDeDatos.listaTecnicos == null)
+            {
+                BaseDeDatos.listaTecnicos = new List<Tecnico>();
+            }
+
+            BaseDeDatos.listaTecnicos.Add(tecnicoPreCargado);
+        }
+
+
+
+
+
+
+        protected void CrearYguardarTecnico(object sender, EventArgs e)
          {
             string nombre = tbNomTec.Text.Trim();
             string apellido = tbApTec.Text.Trim();

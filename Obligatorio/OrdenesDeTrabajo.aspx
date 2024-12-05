@@ -7,7 +7,7 @@
     </div>
     <div>
         <label>Numero de orden</label>
-        <asp:TextBox runat="server" ID="tbNumOrd"/> //CONVERTIR A LABEL
+        <asp:TextBox runat="server" ReadOnly="true" ID="tbNumOrd"/>
         <br />
         <label>Cliente</label>
         <asp:DropDownlist ID="ddlClientes" runat="server"/>
@@ -20,7 +20,8 @@
         <asp:RequiredFieldValidator runat="server" ControlToValidate="tbDescOrd" ErrorMessage="Debe agregar una descripción del problema" ForeColor="Red" ValidationGroup="CrearOrden"/>
         <br/>
         <label>Fecha</label>
-        <asp:TextBox runat="server" ID="tbFechaOrd"/>
+        <asp:TextBox runat="server" ReadOnly="true" ID="tbFechaOrd"/>
+
         <br/>
         <label>Estado</label>
         <asp:DropDownList ID="ddlEstado" Placeholder="Estado" runat="server" Visible="true">
@@ -37,12 +38,18 @@
     <div>
         <asp:Button runat="server" Text="Guardar" OnClick="CrearYguardarOrden" ValidationGroup="CrearOrden"/>
     </div>
+    <div>
+        <asp:Button runat="server" Text="Mostrar Comentarios" OnClick="MostrarComentarios"/>
+        <asp:Button runat="server" Text="Agregar Comentario" OnClick="AgregarComentario"/>
+
+    </div>
+
 
     <h2>Búsqueda de órdenes</h2>
     <div>
         <label>Número de orden:</label>
-        <asp:TextBox ID="tbBuscarNumOrd" runat="server" Placeholder="Ingrese número de orden" />
-        <asp:Button runat="server" Text="Buscar" OnClick="BuscarOrden" ValidationGroup="BusquedaOrdenes" />
+        <asp:TextBox ID="tbBuscarNumOrd" runat="server" Placeholder="Ingrese número de orden"/>
+        <asp:Button runat="server" Text="Buscar" OnClick="BuscarOrden" ValidationGroup="BusquedaOrdenes"/>
 
     </div>
     <br />
@@ -51,19 +58,20 @@
     <asp:Label ID="lblResultadoBusqueda" runat="server" ForeColor="Blue"></asp:Label>
     <div id="detalleOrden" runat="server" visible="false">
         <h3>Detalles de la orden:</h3>
-        <p><strong>Estado:</strong> <asp:Label ID="lblEstado" runat="server" /></p>
-        <p><strong>Cliente:</strong> <asp:Label ID="lblCliente" runat="server" /></p>
-        <p><strong>Técnico:</strong> <asp:Label ID="lblTecnico" runat="server" /></p>
-        <p><strong>Descripción del problema:</strong> <asp:Label ID="lblDescripcion" runat="server" /></p>
-        <p><strong>Fecha de creación:</strong> <asp:Label ID="lblFecha" runat="server" /></p>
-        <p><strong>Comentarios:</strong> <asp:Label ID="lblComentarios" runat="server" /></p>
+        <p><strong>Estado:</strong> <asp:Label ID="lblEstado" runat="server"/></p>
+        <p><strong>Cliente:</strong> <asp:Label ID="lblCliente" runat="server"/></p>
+        <p><strong>Técnico:</strong> <asp:Label ID="lblTecnico" runat="server"/></p>
+        <p><strong>Descripción del problema:</strong> <asp:Label ID="lblDescripcion" runat="server"/></p>
+        <p><strong>Fecha de creación:</strong> <asp:Label ID="lblFecha" runat="server"/></p>
+        <p><strong>Comentarios:</strong> <asp:Label ID="lblComentarios" runat="server"/></p>
+
     </div>
 </div>
 
 
      <h2>Lista de ordenes</h2>
  
-     <asp:GridView ID="tablaODT" runat="server" AutoGenerateColumns="false" DataKeyNames="NumeroOrden" CssClass="styled-gridview">
+   <asp:GridView ID="tablaODT" runat="server" AutoGenerateColumns="False" OnRowUpdating="RowUpdatingEvent" OnRowCancelingEdit="RowCancelingEditingEvent" OnRowEditing ="RowEditingEvent" OnRowDeleting="RowDeletingEvent" DataKeyNames="NumeroOrden">
          <Columns>
              <asp:CommandField showEditButton ="true" ShowDeleteButton="true"/>
              <asp:BoundField DataField="NumeroOrden" HeaderText="Numero de orden"/>
