@@ -14,9 +14,9 @@ namespace Obligatorio
         public string DescripcionProblema { get; set; }
         public DateTime FechaCreacion { get; set; }
         public string Estado { get; set; }
-        public string ListaComentarios { get; set; }
+        public List<string> ListaComentarios { get; set; }
 
-        public OrdenDeTrabajo(int numeroOrden, Cliente clienteOrden, Tecnico tecnicoOrden, string descripcionProblema, DateTime fechaCreacion, string estado, string listaComentarios)
+        public OrdenDeTrabajo(int numeroOrden, Cliente clienteOrden, Tecnico tecnicoOrden, string descripcionProblema, DateTime fechaCreacion, string estado, List<string> listaComentarios)
         {
             NumeroOrden = numeroOrden;
             ClienteOrden = clienteOrden;

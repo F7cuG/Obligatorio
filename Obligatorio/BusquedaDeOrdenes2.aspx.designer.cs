@@ -11,88 +11,115 @@ namespace Obligatorio
 {
 
 
-    public partial class OrdenesDeTrabajo
+    public partial class BusquedaDeOrdenes2
     {
 
         /// <summary>
-        /// Control lblMensaje.
+        /// Control tbBuscarNumOrd.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMensaje;
+        protected global::System.Web.UI.WebControls.TextBox tbBuscarNumOrd;
 
         /// <summary>
-        /// Control tbNumOrd.
+        /// Control lblResultadoBusqueda.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbNumOrd;
+        protected global::System.Web.UI.WebControls.Label lblResultadoBusqueda;
 
         /// <summary>
-        /// Control ddlClientes.
+        /// Control detalleOrden.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlClientes;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl detalleOrden;
 
         /// <summary>
-        /// Control ddlTecnicos.
+        /// Control lblEstado.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTecnicos;
+        protected global::System.Web.UI.WebControls.Label lblEstado;
 
         /// <summary>
-        /// Control tbDescOrd.
+        /// Control lblCliente.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbDescOrd;
+        protected global::System.Web.UI.WebControls.Label lblCliente;
 
         /// <summary>
-        /// Control tbFechaOrd.
+        /// Control lblTecnico.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbFechaOrd;
+        protected global::System.Web.UI.WebControls.Label lblTecnico;
 
         /// <summary>
-        /// Control ddlEstado.
+        /// Control lblDescripcion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEstado;
+        protected global::System.Web.UI.WebControls.Label lblDescripcion;
 
         /// <summary>
-        /// Control tbComOrd.
+        /// Control lblFecha.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbComOrd;
+        protected global::System.Web.UI.WebControls.Label lblFecha;
 
         /// <summary>
-        /// Control tablaODT.
+        /// Control lblComentarios.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView tablaODT;
+        protected global::System.Web.UI.WebControls.Label lblComentarios;
+
+        /// <summary>
+        /// Control tbComentario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbComentario;
+
+        /// <summary>
+        /// Control lblErrorComentario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorComentario;
+
+        /// <summary>
+        /// Control btnComentario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnComentario;
     }
 }

@@ -25,9 +25,9 @@
         <br/>
         <label>Estado</label>
         <asp:DropDownList ID="ddlEstado" Placeholder="Estado" runat="server" Visible="true">
-            <asp:ListItem Text="Pendiente" Value="2"></asp:ListItem>
-            <asp:ListItem Text="En progreso" Value="3"></asp:ListItem>
-            <asp:ListItem Text="Completada" Value="4"></asp:ListItem>
+            <asp:ListItem Text="Pendiente" Value="Pendiente"></asp:ListItem>
+            <asp:ListItem Text="En progreso" Value="En progreso"></asp:ListItem>
+            <asp:ListItem Text="Completada" Value="Completada"></asp:ListItem>
         </asp:DropDownList>
         <br/>
         <label>Comentarios</label>
@@ -39,34 +39,12 @@
         <asp:Button runat="server" Text="Guardar" OnClick="CrearYguardarOrden" ValidationGroup="CrearOrden"/>
     </div>
     <div>
-        <asp:Button runat="server" Text="Mostrar Comentarios" OnClick="MostrarComentarios"/>
-        <asp:Button runat="server" Text="Agregar Comentario" OnClick="AgregarComentario"/>
+      
 
     </div>
 
 
-    <h2>Búsqueda de órdenes</h2>
-    <div>
-        <label>Número de orden:</label>
-        <asp:TextBox ID="tbBuscarNumOrd" runat="server" Placeholder="Ingrese número de orden"/>
-        <asp:Button runat="server" Text="Buscar" OnClick="BuscarOrden" ValidationGroup="BusquedaOrdenes"/>
-
-    </div>
-    <br />
-
-<div>
-    <asp:Label ID="lblResultadoBusqueda" runat="server" ForeColor="Blue"></asp:Label>
-    <div id="detalleOrden" runat="server" visible="false">
-        <h3>Detalles de la orden:</h3>
-        <p><strong>Estado:</strong> <asp:Label ID="lblEstado" runat="server"/></p>
-        <p><strong>Cliente:</strong> <asp:Label ID="lblCliente" runat="server"/></p>
-        <p><strong>Técnico:</strong> <asp:Label ID="lblTecnico" runat="server"/></p>
-        <p><strong>Descripción del problema:</strong> <asp:Label ID="lblDescripcion" runat="server"/></p>
-        <p><strong>Fecha de creación:</strong> <asp:Label ID="lblFecha" runat="server"/></p>
-        <p><strong>Comentarios:</strong> <asp:Label ID="lblComentarios" runat="server"/></p>
-
-    </div>
-</div>
+   
 
 
      <h2>Lista de ordenes</h2>

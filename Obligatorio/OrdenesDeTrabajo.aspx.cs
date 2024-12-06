@@ -78,6 +78,8 @@ namespace Obligatorio
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
                 return;
             }
+            List<string> listaDeComentarios = new List<string>();
+            listaDeComentarios.Add(tbComOrd.Text);
 
             OrdenDeTrabajo ordenDeTrabajo = new OrdenDeTrabajo(
                 numeroOrden,
@@ -86,7 +88,7 @@ namespace Obligatorio
                 tbDescOrd.Text,
                 DateTime.Now,
                 ddlEstado.SelectedItem.Text,
-                tbComOrd.Text
+                listaDeComentarios
 
             );
 
@@ -108,49 +110,7 @@ namespace Obligatorio
             tablaODT.DataBind();
         }
 
-        //BUSQUEDA DE ORDENES
-        protected void BuscarOrden(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbBuscarNumOrd.Text) || !int.TryParse(tbBuscarNumOrd.Text, out int numeroOrden))
-            {
-                lblResultadoBusqueda.Text = "Por favor, ingrese un número de orden válido.";
-                lblResultadoBusqueda.ForeColor = System.Drawing.Color.Red;
-                detalleOrden.Visible = false;
-                return;
-            }
-
-            OrdenDeTrabajo orden = BaseDeDatos.listaOrdenesDeTrabajo.FirstOrDefault(o => o.NumeroOrden == numeroOrden);
-
-            if (orden == null)
-            {
-                lblResultadoBusqueda.Text = "No se encontró ninguna orden con el número ingresado.";
-                lblResultadoBusqueda.ForeColor = System.Drawing.Color.Red;
-                detalleOrden.Visible = false;
-            }
-            else
-            {
-                lblEstado.Text = orden.Estado;
-                lblCliente.Text = orden.ClienteOrden.Nombre + " " + orden.ClienteOrden.Apellido + " (CI: " + orden.ClienteOrden.CI + ")";
-                lblTecnico.Text = orden.TecnicoOrden.Nombre + " " + orden.TecnicoOrden.Apellido + " (CI: " + orden.TecnicoOrden.CI + ")";
-                lblDescripcion.Text = orden.DescripcionProblema;
-                lblFecha.Text = orden.FechaCreacion.ToString("dd-MM-yyyy");
-                lblComentarios.Text = string.IsNullOrEmpty(orden.ListaComentarios) ? "No hay comentarios." : orden.ListaComentarios;
-
-                if (string.IsNullOrEmpty(orden.ListaComentarios))
-                {
-                    lblComentarios.Text = "No hay comentarios.";
-                }
-                else
-                {
-                    lblComentarios.Text = orden.ListaComentarios;
-                }
-
-
-                lblResultadoBusqueda.Text = "Orden encontrada:";
-                lblResultadoBusqueda.ForeColor = System.Drawing.Color.Green;
-                detalleOrden.Visible = true;
-            }
-        }
+       
 
         protected void RowDeletingEvent(object sender, GridViewDeleteEventArgs e)
         {
@@ -201,7 +161,8 @@ namespace Obligatorio
                     ordenDeTrabajo.TecnicoOrden.Nombre = Tecnico.Text.Trim();
                     ordenDeTrabajo.DescripcionProblema = DescProb.Text.Trim();
                     ordenDeTrabajo.Estado = Estado.Text.Trim();
-                    ordenDeTrabajo.ListaComentarios = Comentarios.Text.Trim();
+                    ordenDeTrabajo.ListaComentarios = new List<string>();
+                    ordenDeTrabajo.ListaComentarios.Add(Comentarios.Text);
                 }
                 else
                 {
@@ -222,70 +183,5 @@ namespace Obligatorio
             tablaODT.EditIndex = -1;
             CargarTablaODT(sender, e);
         }
-
-        protected void AgregarComentario(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(tbBuscarNumOrd.Text) && int.TryParse(tbBuscarNumOrd.Text, out int numeroOrden))
-            {
-                OrdenDeTrabajo orden = BaseDeDatos.listaOrdenesDeTrabajo.FirstOrDefault(o => o.NumeroOrden == numeroOrden);
-
-                if (orden != null)
-                {
-                    string nuevoComentario = tbComOrd.Text.Trim();
-                    if (!string.IsNullOrEmpty(nuevoComentario))
-                    {
-                        orden.ListaComentarios += (string.IsNullOrEmpty(orden.ListaComentarios) ? "" : "\n") + nuevoComentario;
-
-                        lblMensaje.Text = "Comentario agregado correctamente";
-                        lblMensaje.ForeColor = System.Drawing.Color.Green;
-                        tbComOrd.Text = "";
-                    }
-                    else
-                    {
-                        lblMensaje.Text = "Debe ingresar un comentario para agregar.";
-                        lblMensaje.ForeColor = System.Drawing.Color.Red;
-                    }
-                }
-                else
-                {
-                    lblMensaje.Text = "No se encontró la orden.";
-                    lblMensaje.ForeColor = System.Drawing.Color.Red;
-                }
-            }
-            else
-            {
-                lblMensaje.Text = "Por favor, ingrese un número de orden válido";
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
-            }
-        }
-
-
-        protected void MostrarComentarios(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(tbBuscarNumOrd.Text) && int.TryParse(tbBuscarNumOrd.Text, out int numeroOrden))
-            {
-                OrdenDeTrabajo orden = BaseDeDatos.listaOrdenesDeTrabajo.FirstOrDefault(o => o.NumeroOrden == numeroOrden);
-
-                if (orden != null)
-                {
-                    lblComentarios.Text = string.IsNullOrEmpty(orden.ListaComentarios) ? "No hay comentarios." : orden.ListaComentarios;
-                    lblComentarios.ForeColor = System.Drawing.Color.Black;
-                    detalleOrden.Visible = true;
-                }
-                else
-                {
-                    lblComentarios.Text = "No se encontró la orden.";
-                    lblComentarios.ForeColor = System.Drawing.Color.Red;
-                }
-            }
-            else
-            {
-                lblComentarios.Text = "Por favor, ingrese un número de orden válido.";
-                lblComentarios.ForeColor = System.Drawing.Color.Red;
-            }
-        }
-
-
     }
-
 } 
