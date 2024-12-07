@@ -9,6 +9,14 @@ namespace Obligatorio
 {
     public partial class Tecnicos : System.Web.UI.Page
     {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                CargarTablaTecnicos(sender, e);
+            }
+        }
+
         private bool ValidarCedulaUruguaya(string ci)
         {
             ci = ci.Replace(".", "").Replace("-", "");
@@ -33,47 +41,9 @@ namespace Obligatorio
             int digVerif = ci[7] - '0';
             return codVerif == digVerif;
         }
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                CargarTablaTecnicos(sender, e);
-
-                if (BaseDeDatos.listaTecnicos == null || !BaseDeDatos.listaTecnicos.Any())
-                {
-                    PreCargarTecnicos();
-                }
-
-                CargarTablaTecnicos(sender, e);
-            }
-
-        }
-        private void PreCargarTecnicos()
-        {
-            // Precarga un técnico ejemplo
-            Tecnico tecnicoPreCargado = new Tecnico(
-                "Juan",          // Nombre
-                "Pérez",         // Apellido
-                "12345678",      // CI
-                "Electricista"   // Especialidad
-            );
-
-            // Asegúrate de inicializar la lista si es null
-            if (BaseDeDatos.listaTecnicos == null)
-            {
-                BaseDeDatos.listaTecnicos = new List<Tecnico>();
-            }
-
-            BaseDeDatos.listaTecnicos.Add(tecnicoPreCargado);
-        }
-
-
-
-
-
 
         protected void CrearYguardarTecnico(object sender, EventArgs e)
-         {
+        {
             string nombre = tbNomTec.Text.Trim();
             string apellido = tbApTec.Text.Trim();
             string ci = tbCiTec.Text.Trim();
@@ -108,8 +78,7 @@ namespace Obligatorio
             tbCiTec.Text = "";
             tbEspTec.Text = "";
 
-            CargarTablaTecnicos(sender, e);   
-
+            CargarTablaTecnicos(sender, e);
         }
 
         protected void CargarTablaTecnicos(object sender, EventArgs e)
@@ -120,9 +89,9 @@ namespace Obligatorio
 
         protected void RowDeletingEvent(object sender, GridViewDeleteEventArgs e)
         {
-            int rowIndexTec = e.RowIndex;                                                       
-            string tecnicoCI = tablaTecnicos.DataKeys[rowIndexTec].Values[0].ToString();        
-            Tecnico tecnico = BaseDeDatos.listaTecnicos.FirstOrDefault(c => c.CI == tecnicoCI); 
+            int rowIndexTec = e.RowIndex;
+            string tecnicoCI = tablaTecnicos.DataKeys[rowIndexTec].Values[0].ToString();
+            Tecnico tecnico = BaseDeDatos.listaTecnicos.FirstOrDefault(c => c.CI == tecnicoCI);
             if (tecnico != null)
             {
                 BaseDeDatos.listaTecnicos.Remove(tecnico);
@@ -144,8 +113,6 @@ namespace Obligatorio
 
         protected void RowUpdatingEvent(object sender, GridViewUpdateEventArgs e)
         {
-             
-
             int rowIndexTec = e.RowIndex;
             if (tablaTecnicos.DataKeys != null && tablaTecnicos.DataKeys[rowIndexTec] != null)
             {
@@ -179,7 +146,6 @@ namespace Obligatorio
                 lblMensaje.Text = "Error: no se pudo obtener la clave de la fila seleccionada";
             }
         }
-
 
         protected void RowCancelingEditingEvent(object sender, GridViewCancelEditEventArgs e)
         {

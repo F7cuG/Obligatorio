@@ -15,11 +15,70 @@
 
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
- 
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-   
-</head>
 
+    <style>
+        /* Navbar estilizado */
+        .navbar {
+            width: 100%;
+            background-color: #004080; /* Azul oscuro */
+            border-bottom: 2px solid #003366; /* Borde azul oscuro más profundo */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Sombra sutil */
+        }
+
+        .navbar .navbar-brand {
+            color: #ffffff; /* Color blanco para el nombre de la marca */
+            font-weight: bold;
+        }
+
+        .navbar .nav-link {
+            color: #ffffff; /* Color blanco para los enlaces */
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar .nav-link:hover {
+            background-color: #003366; /* Fondo azul oscuro al pasar el ratón */
+            border-radius: 5px; /* Bordes redondeados */
+        }
+
+        /* Ajustes para la barra de navegación en dispositivos móviles */
+        .navbar-toggler {
+            border: 1px solid #ffffff; /* Borde blanco para el botón de alternancia */
+        }
+
+        .navbar-toggler-icon {
+            background-color: #ffffff; /* Icono de alternancia blanco */
+        }
+
+        /* Estilo de los elementos dentro del contenedor */
+        .container {
+            max-width: 1200px; /* Ancho máximo */
+            margin: 0 auto; /* Centra el contenido */
+            padding: 0 15px; /* Espaciado interno */
+        }
+
+        /* Footer estilizado */
+        footer {
+            background-color: #004080; /* Mismo color que el navbar */
+            color: #ffffff; /* Texto blanco */
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Ajustes de la barra de navegación para pantallas pequeñas */
+        @media (max-width: 768px) {
+            .navbar .nav-link {
+                padding: 8px 10px; /* Ajuste de padding para pantallas pequeñas */
+            }
+        }
+    </style>
+</head>
 
 <body>
     <form runat="server">
@@ -51,14 +110,12 @@
                 </button>
                 <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Inicio">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Inicio">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Clientes">Gestión de clientes</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Tecnicos">Gestión de técnicos</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/OrdenesDeTrabajo">Gestión de ordenes</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/ReporteDeActividad">Reporte de actividad</a></li>
-                        
-
-
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/BusquedaDeOrdenes">Busqueda de ordenes</a></li>
                     </ul>
                 </div>
             </div>
@@ -77,3 +134,4 @@
     </asp:PlaceHolder>
 </body>
 </html>
+

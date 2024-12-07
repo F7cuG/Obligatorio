@@ -97,7 +97,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BusquedaDeOrdenes.aspx" />
-    <Content Include="BusquedaDeOrdenes2.aspx" />
     <Content Include="Clientes.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -129,7 +128,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Inicio.aspx" />
     <Content Include="ReporteDeActividad.aspx" />
-    <Content Include="WebForm1.aspx" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -170,16 +168,10 @@
     <Compile Include="Base de datos.cs" />
     <Compile Include="BusquedaDeOrdenes.aspx.cs">
       <DependentUpon>BusquedaDeOrdenes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BusquedaDeOrdenes.aspx.designer.cs">
       <DependentUpon>BusquedaDeOrdenes.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="BusquedaDeOrdenes2.aspx.cs">
-      <DependentUpon>BusquedaDeOrdenes2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="BusquedaDeOrdenes2.aspx.designer.cs">
-      <DependentUpon>BusquedaDeOrdenes2.aspx</DependentUpon>
     </Compile>
     <Compile Include="Cliente.cs" />
     <Compile Include="Clientes.aspx.cs">
@@ -258,13 +250,6 @@
     </Compile>
     <Compile Include="ReporteDeActividad.aspx.designer.cs">
       <DependentUpon>ReporteDeActividad.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -19,7 +19,7 @@ namespace Obligatorio
             this.Apellido = apellido; 
             this.CI = ci;
             this.Especialidad = especialidad;
-            this.NombreCompletoTec = nombre + apellido;
+            this.NombreCompletoTec = nombre + " " + apellido;
         }
     }
 }

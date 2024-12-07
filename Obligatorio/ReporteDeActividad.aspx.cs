@@ -31,6 +31,7 @@ namespace Obligatorio
                 return;
             }
 
+            fechaFin = fechaFin.Date.AddDays(1).AddTicks(-1);
             CargarResumenTecnicos(fechaInicio, fechaFin);
             CargarOrdenesCompletadas(fechaInicio, fechaFin);
         }
@@ -52,16 +53,28 @@ namespace Obligatorio
         private void CargarOrdenesCompletadas(DateTime fechaInicio, DateTime fechaFin)
         {
             var ordenesCompletadas = BaseDeDatos.listaOrdenesDeTrabajo
-                .Where(o => o.Estado == "Completada" && o.FechaCreacion >= fechaInicio && o.FechaCreacion <= fechaFin).Select
-                (o => new
+                .Where(o => o.Estado == "Completada" && o.FechaCreacion >= fechaInicio && o.FechaCreacion <= fechaFin)
+                .Select(o => new
                 {
                     NumeroOrden = o.NumeroOrden,
                     Cliente = o.ClienteOrden.Nombre + " " + o.ClienteOrden.Apellido,
                     Tecnico = o.TecnicoOrden.Nombre + " " + o.TecnicoOrden.Apellido,
                     Descripcion = o.DescripcionProblema,
                     Fecha = o.FechaCreacion.ToString("MM-dd-yyyy")
-                }
-                ).ToList();
+                })
+                .ToList();
+
+            if (!ordenesCompletadas.Any())
+            {
+                ordenesCompletadas.Add(new
+                {
+                    NumeroOrden = 0,
+                    Cliente = "-",
+                    Tecnico = "-",
+                    Descripcion = "-",
+                    Fecha = "-"
+                });
+            }
 
             gvOrdenesCompletadas.DataSource = ordenesCompletadas;
             gvOrdenesCompletadas.DataBind();

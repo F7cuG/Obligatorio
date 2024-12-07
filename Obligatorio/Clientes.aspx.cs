@@ -14,35 +14,9 @@ namespace Obligatorio
         {
             if (!IsPostBack)
             {
-                if (BaseDeDatos.listaClientes == null || !BaseDeDatos.listaClientes.Any())
-                {
-                    PreCargarClientes();
-                }
-
                 CargarTablaClientes(sender, e);
             }
         }
-
-
-        private void PreCargarClientes()
-        {
-            Cliente clientePreCargado = new Cliente(
-                "Ana",           
-                "Gómez",         
-                "12345678",      
-                "18 de Julio 1234", 
-                987654321,       
-                "ana.gomez@example.com"
-            );
-
-            if (BaseDeDatos.listaClientes == null)
-            {
-                BaseDeDatos.listaClientes = new List<Cliente>();
-            }
-            BaseDeDatos.listaClientes.Add(clientePreCargado);
-        }
-
-        
 
         private bool ValidarCedulaUruguaya(string ci)
         {
@@ -82,35 +56,41 @@ namespace Obligatorio
 
             if (string.IsNullOrWhiteSpace(nombre) || !nombre.All(char.IsLetter))
             {
-                lblMensaje.Text = "El campo Nombre debe contener solo letras.";
+                lblMensaje.Text = "Debe ingresar un nombre valido.";
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(apellido) || !apellido.All(char.IsLetter))
             {
-                lblMensaje.Text = "El campo Apellido debe contener solo letras.";
+                lblMensaje.Text = "Debe ingresar un apellido valido.";
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
                 return;
             }
 
             if (!ValidarCedulaUruguaya(ci))
             {
-                lblMensaje.Text = "El CI ingresado no es válido.";
+                lblMensaje.Text = "Debe ingresar un CI valido.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+            if (BaseDeDatos.listaClientes.Any(c => c.CI == ci))
+            {
+                lblMensaje.Text = "Ya existe un cliente con ese CI.";
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(telefonoTexto) || !long.TryParse(telefonoTexto, out telefono))
             {
-                lblMensaje.Text = "El campo Teléfono debe contener solo números.";
+                lblMensaje.Text = "Debe ingresar un numero de telefono valido.";
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(email) || !email.Contains("@") || !email.Contains("."))
             {
-                lblMensaje.Text = "El campo Email debe ser una dirección de correo válida.";
+                lblMensaje.Text = "Debe ingresar un Email valido.";
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
                 return;
             }
@@ -127,6 +107,7 @@ namespace Obligatorio
             lblMensaje.Text = "Cliente creado exitosamente";
             lblMensaje.ForeColor = System.Drawing.Color.Green;
             BaseDeDatos.listaClientes.Add(cliente);
+            Session["Clientes"] = BaseDeDatos.listaClientes;
 
             CargarTablaClientes(null, EventArgs.Empty);
 
@@ -187,27 +168,56 @@ namespace Obligatorio
                     TextBox Telefono = (TextBox)row.Cells[5].Controls[0];
                     TextBox Email = (TextBox)row.Cells[6].Controls[0];
 
+                    if (string.IsNullOrWhiteSpace(Nombre.Text.Trim()) || !Nombre.Text.All(char.IsLetter))
+                    {
+                        lblMensaje.Text = "Debe ingresar un nombre valido.";
+                        lblMensaje.ForeColor = System.Drawing.Color.Red;
+                        return;
+                    }
+                    if (string.IsNullOrWhiteSpace(Apellido.Text.Trim()) || !Apellido.Text.All(char.IsLetter))
+                    {
+                        lblMensaje.Text = "Debe ingresar un apellido valido.";
+                        lblMensaje.ForeColor = System.Drawing.Color.Red;
+                        return;
+                    }
+                    if (!ValidarCedulaUruguaya(cliente.CI))
+                    {
+                        lblMensaje.Text = "Debe ingresar un CI valido.";
+                        lblMensaje.ForeColor = System.Drawing.Color.Red;
+                        return;
+                    }
+                    if (!long.TryParse(Telefono.Text.Trim(), out long telefono))
+                    {
+                        lblMensaje.Text = "Debe ingresar un numero de telefono valido.";
+                        lblMensaje.ForeColor = System.Drawing.Color.Red;
+                        return;
+                    }
+                    if (string.IsNullOrWhiteSpace(Email.Text.Trim()) || !Email.Text.Contains("@") || !Email.Text.Contains("."))
+                    {
+                        lblMensaje.Text = "Debe ingresar un Email valido.";
+                        lblMensaje.ForeColor = System.Drawing.Color.Red;
+                        return;
+                    }
+                    if (BaseDeDatos.listaClientes.Any(c => c.CI == cliente.CI && c != cliente))
+                    {
+                        lblMensaje.Text = "Ya existe un cliente con ese CI.";
+                        lblMensaje.ForeColor = System.Drawing.Color.Red;
+                        return;
+                    }
+
                     cliente.Nombre = Nombre.Text.Trim();
                     cliente.Apellido = Apellido.Text.Trim();
                     cliente.Direccion = Direccion.Text.Trim();
                     cliente.Email = Email.Text.Trim();
+                    cliente.Telefono = telefono;
 
-                    if (long.TryParse(Telefono.Text.Trim(), out long telefono))
-                    {
-                        cliente.Telefono = telefono;
-                        lblMensaje.Text = "Cliente actualizado correctamente.";
-                    }
-                    else
-                    {
-                        lblMensaje.Text = "El teléfono ingresado no es un número válido.";
-                        return;
-                    }
+                    lblMensaje.Text = "Cliente actualizado correctamente.";
+                    lblMensaje.ForeColor = System.Drawing.Color.Green;
                 }
                 else
                 {
                     lblMensaje.Text = "No se encontró ningún cliente con el CI ingresado.";
                 }
-
                 tablaClientes.EditIndex = -1;
                 CargarTablaClientes(sender, e);
             }
@@ -216,9 +226,6 @@ namespace Obligatorio
                 lblMensaje.Text = "Error: no se pudo obtener la clave de la fila seleccionada.";
             }
         }
-
-
-
         protected void RowCancelingEditingEvent(object sender, GridViewCancelEditEventArgs e)
         {
             tablaClientes.EditIndex = -1;

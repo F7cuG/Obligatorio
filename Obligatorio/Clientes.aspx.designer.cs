@@ -78,15 +78,6 @@ namespace Obligatorio
         protected global::System.Web.UI.WebControls.TextBox tbEmailCli;
 
         /// <summary>
-        /// Control tablaClientes.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView tablaClientes;
-
-        /// <summary>
         /// Control btnSaveCli.
         /// </summary>
         /// <remarks>
@@ -94,5 +85,14 @@ namespace Obligatorio
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSaveCli;
+
+        /// <summary>
+        /// Control tablaClientes.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView tablaClientes;
     }
 }
