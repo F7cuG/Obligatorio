@@ -1,6 +1,48 @@
 ﻿<%@ Page Title="Reporte de Actividad" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ReporteDeActividad.aspx.cs" Inherits="Obligatorio.ReporteActividad" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    
+    <style>
+    .styled-gridview 
+    {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    .styled-gridview th 
+    {
+        background-color: #004080; 
+        color: white;
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    .styled-gridview td 
+    {
+        padding: 8px;
+        border: 1px solid #ddd;
+    }
+
+    .styled-gridview tr:nth-child(even) 
+    {
+        background-color: #f2f2f2;
+    }
+
+    .styled-gridview tr:hover 
+    {
+        background-color: #ddd;
+    }
+
+   
+    #btnFiltrar:hover 
+    {
+        background-color: #003366; 
+        border-radius: 5px;
+    }
+</style>
+
     <h1 style="color: #004080; border-bottom: 2px solid #004080; padding-bottom: 10px;">Reporte de Actividad</h1>
 
     <div style="margin-bottom: 20px;">
@@ -39,39 +81,4 @@
             </Columns>
         </asp:GridView>
     </div>
-
-    <style>
-        .styled-gridview {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        .styled-gridview th {
-            background-color: #004080; /* Azul oscuro */
-            color: white;
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-
-        .styled-gridview td {
-            padding: 8px;
-            border: 1px solid #ddd;
-        }
-
-        .styled-gridview tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        .styled-gridview tr:hover {
-            background-color: #ddd;
-        }
-
-        /* Botón de filtro */
-        #btnFiltrar:hover {
-            background-color: #003366; /* Azul oscuro al pasar el ratón */
-            border-radius: 5px; /* Bordes redondeados */
-        }
-    </style>
 </asp:Content>

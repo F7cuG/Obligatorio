@@ -5,48 +5,53 @@
     <h1 class="titulo">Técnicos</h1>
 
     <style>
-        /* Estilo general de la página */
-        body {
+
+        body 
+        {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             margin: 20px;
         }
 
-        /* Estilo de los títulos */
-        .titulo {
-            color: #004080; /* Azul oscuro */
+        .titulo 
+        {
+            color: #004080; 
             border-bottom: 2px solid #004080;
-            font-size: 43px; /* Tamaño de fuente igual al de ReporteDeActividad.aspx */
-            margin-bottom: 10px; /* Margen inferior para consistencia */
+            font-size: 43px; 
+            margin-bottom: 10px; 
         }
 
-        h2 {
-            color: #004080; /* Azul oscuro */
-            font-size: 30px; /* Tamaño de h2 igual al de ReporteDeActividad.aspx */
+        h2 
+        {
+            color: #004080; 
+            font-size: 30px; 
             margin-bottom: 10px;
         }
 
-        /* Estilo del contenedor del formulario */
-        .form-container {
+        .form-container 
+        {
             display: flex;
             flex-direction: column;
             gap: 10px;
             margin-bottom: 20px;
         }
 
-        label {
+        label 
+        {
             font-weight: bold;
         }
 
-        .input-field {
+        .input-field 
+        {
             padding: 8px;
             border: 1px solid #ddd;
             border-radius: 5px;
             width: 100%;
         }
 
-        .btn-guardar {
-            background-color: #004080; /* Azul oscuro */
+        .btn-guardar 
+        {
+            background-color: #004080; 
             color: white;
             border: none;
             padding: 10px 15px;
@@ -55,38 +60,43 @@
             margin-top: 10px;
         }
 
-        .btn-guardar:hover {
-            background-color: #003366; /* Azul oscuro al pasar el ratón */
+        .btn-guardar:hover 
+        {
+            background-color: #003366; 
         }
 
-        /* Estilo del GridView */
-        .styled-gridview {
+        .styled-gridview 
+        {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            border-radius: 8px; /* Bordes redondeados */
+            border-radius: 8px; 
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .styled-gridview th {
-            background-color: #004080; /* Azul oscuro */
+        .styled-gridview th 
+        {
+            background-color: #004080;
             color: white;
             padding: 10px;
             text-align: left;
             border: 1px solid #ddd;
         }
 
-        .styled-gridview td {
+        .styled-gridview td 
+        {
             padding: 8px;
             border: 1px solid #ddd;
         }
 
-        .styled-gridview tr:nth-child(even) {
+        .styled-gridview tr:nth-child(even) 
+        {
             background-color: #f2f2f2;
         }
 
-        .styled-gridview tr:hover {
+        .styled-gridview tr:hover 
+        {
             background-color: #ddd;
         }
     </style>

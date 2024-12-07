@@ -5,55 +5,63 @@
     <h1 class="titulo">Clientes</h1>
 
     <style>
-        body {
+        body 
+        {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             margin: 20px;
         }
 
-        .titulo {
-            color: #004080; /* Azul oscuro */
-            border-bottom: 2px solid #004080; /* Línea debajo del título */
+        .titulo 
+        {
+            color: #004080; 
+            border-bottom: 2px solid #004080; 
             padding-bottom: 10px;
             margin-bottom: 20px;
-            font-size: 43px; /* Tamaño de fuente igual al de ReporteDeActividad.aspx */
+            font-size: 43px; 
         }
 
-        h2 {
-            color: #004080; /* Azul oscuro */
-            font-size: 30px; /* Tamaño de h2 igual al de ReporteDeActividad.aspx */
+        h2 
+        {
+            color: #004080; 
+            font-size: 30px; 
             margin-bottom: 10px;
         }
 
-        .form-container {
+        .form-container 
+        {
             display: flex;
             flex-direction: column;
             gap: 10px;
             margin-bottom: 20px;
         }
 
-        label {
+        label 
+        {
             font-weight: bold;
         }
 
-        .input-field {
+        .input-field 
+        {
             padding: 8px;
             border: 1px solid #ddd;
             border-radius: 5px;
             width: 100%;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 16px;
-            box-sizing: border-box; /* Para incluir el padding en el tamaño del elemento */
+            box-sizing: border-box; 
         }
 
-        .input-field:focus {
-            border-color: #004080; /* Azul oscuro */
+        .input-field:focus 
+        {
+            border-color: #004080; 
             outline: none;
-            box-shadow: 0 0 5px rgba(0, 64, 128, 0.5); /* Sombra suave para el enfoque */
+            box-shadow: 0 0 5px rgba(0, 64, 128, 0.5); 
         }
 
-        .btn-guardar {
-            background-color: #004080; /* Azul oscuro */
+        .btn-guardar 
+        {
+            background-color: #004080; 
             color: white;
             border: none;
             padding: 10px 15px;
@@ -62,37 +70,43 @@
             margin-top: 10px;
         }
 
-        .btn-guardar:hover {
-            background-color: #003366; /* Azul oscuro al pasar el ratón */
+        .btn-guardar:hover 
+        {
+            background-color: #003366; 
         }
 
-        .styled-gridview {
+        .styled-gridview 
+        {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            border-radius: 8px; /* Bordes redondeados */
+            border-radius: 8px; 
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .styled-gridview th {
-            background-color: #004080; /* Azul oscuro */
+        .styled-gridview th 
+        {
+            background-color: #004080; 
             color: white;
             padding: 10px;
             text-align: left;
             border: 1px solid #ddd;
         }
 
-        .styled-gridview td {
+        .styled-gridview td 
+        {
             padding: 8px;
             border: 1px solid #ddd;
         }
 
-        .styled-gridview tr:nth-child(even) {
+        .styled-gridview tr:nth-child(even) 
+        {
             background-color: #f2f2f2;
         }
 
-        .styled-gridview tr:hover {
+        .styled-gridview tr:hover 
+        {
             background-color: #ddd;
         }
     </style>

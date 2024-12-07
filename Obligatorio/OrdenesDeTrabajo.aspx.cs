@@ -182,7 +182,6 @@ namespace Obligatorio
                     DropDownList ddlEstadoEdit = (DropDownList)row.FindControl("ddlEdicionEstado");
                     TextBox comentarios = (TextBox)row.FindControl("txtComentarios");
 
-                    // Verificar que los controles se han recuperado correctamente
                     if (clienteNombre != null && !string.IsNullOrWhiteSpace(clienteNombre.Text))
                     {
                         ordenDeTrabajo.ClienteOrden.Nombre = clienteNombre.Text.Trim();
@@ -211,7 +210,6 @@ namespace Obligatorio
                         }
                     }
 
-                    // Finalizar la edición
                     tablaODT.EditIndex = -1;
                     CargarTablaODT(sender, e);
                     Session["ListaOrdenesDeTrabajo"] = BaseDeDatos.listaOrdenesDeTrabajo;
