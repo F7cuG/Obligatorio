@@ -52,8 +52,10 @@ namespace Obligatorio
 
         private void CargarOrdenesCompletadas(DateTime fechaInicio, DateTime fechaFin)
         {
+            DateTime inicioUltimoMes = DateTime.Now.AddMonths(-1).Date;
+
             var ordenesCompletadas = BaseDeDatos.listaOrdenesDeTrabajo
-                .Where(o => o.Estado == "Completada" && o.FechaCreacion >= fechaInicio && o.FechaCreacion <= fechaFin)
+                .Where(o => o.Estado == "Completada" && o.FechaCreacion >= inicioUltimoMes && o.FechaCreacion <= fechaFin)
                 .Select(o => new
                 {
                     NumeroOrden = o.NumeroOrden,
