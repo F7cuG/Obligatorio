@@ -13,6 +13,10 @@ namespace Obligatorio
         {
             if (!IsPostBack)
             {
+                if (Session["UsuarioLogueado"] == null)
+                {
+                    Response.Redirect("Login.aspx");
+                }
                 if (Session["ListaOrdenesDeTrabajo"] == null)
                 {
                     Session["ListaOrdenesDeTrabajo"] = new List<OrdenDeTrabajo>();
@@ -27,6 +31,7 @@ namespace Obligatorio
                         MostrarDetallesOrden(orden);
                     }
                 }
+                
             }
         }
 

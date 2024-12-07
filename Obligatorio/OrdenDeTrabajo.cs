@@ -8,7 +8,7 @@ namespace Obligatorio
 {
     public partial class OrdenDeTrabajo
     {
-        public int NumeroOrden {  get; set; }
+        public int NumeroOrden { get; set; }
         public Cliente ClienteOrden { get; set; }
         public Tecnico TecnicoOrden { get; set; }
         public string DescripcionProblema { get; set; }

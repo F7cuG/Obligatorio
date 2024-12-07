@@ -15,6 +15,10 @@ namespace Obligatorio
             {
                 CargarResumenOrdenes();
             }
+            if (Session["UsuarioLogueado"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
         }
         private void CargarResumenOrdenes()
         {

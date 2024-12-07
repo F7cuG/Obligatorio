@@ -25,6 +25,13 @@ namespace Obligatorio
         }
 
         static public List<OrdenDeTrabajo> listaOrdenesDeTrabajo = new List<OrdenDeTrabajo>();
+
+        public static List<Usuario> listaUsuarios = new List<Usuario>
+        {
+            new Usuario {NombreUsuario = "admin", Contraseña = "12345" },
+            new Usuario {NombreUsuario = "tecnico1", Contraseña = "12345"}
+        };
+
     }
 
 

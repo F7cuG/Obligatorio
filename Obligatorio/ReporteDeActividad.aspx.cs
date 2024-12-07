@@ -14,6 +14,10 @@ namespace Obligatorio
                 tbFechaFin.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 FiltrarOrdenes(null, null);
             }
+            if (Session["UsuarioLogueado"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
         }
 
         protected void FiltrarOrdenes(object sender, EventArgs e)
