@@ -18,63 +18,68 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
 
     <style>
-        /* Navbar estilizado */
-        .navbar {
+
+        .navbar 
+        {
             width: 100%;
-            background-color: #004080; /* Azul oscuro */
-            border-bottom: 2px solid #003366; /* Borde azul oscuro más profundo */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Sombra sutil */
+            background-color: #004080; 
+            border-bottom: 2px solid #003366; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); 
         }
 
-        .navbar .navbar-brand {
-            color: #ffffff; /* Color blanco para el nombre de la marca */
+        .navbar .navbar-brand
+        {
+            color: #ffffff; 
             font-weight: bold;
         }
 
-        .navbar .nav-link {
-            color: #ffffff; /* Color blanco para los enlaces */
+        .navbar .nav-link 
+        {
+            color: #ffffff; 
             padding: 10px 15px;
             transition: background-color 0.3s;
         }
 
-        .navbar .nav-link:hover {
-            background-color: #003366; /* Fondo azul oscuro al pasar el ratón */
-            border-radius: 5px; /* Bordes redondeados */
+        .navbar .nav-link:hover
+        {
+            background-color: #003366; 
+            border-radius: 5px; 
         }
 
-        /* Ajustes para la barra de navegación en dispositivos móviles */
-        .navbar-toggler {
-            border: 1px solid #ffffff; /* Borde blanco para el botón de alternancia */
+        .navbar-toggler-icon
+        {
+            background-color: #ffffff; 
         }
 
-        .navbar-toggler-icon {
-            background-color: #ffffff; /* Icono de alternancia blanco */
+        
+        .container
+        {
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 15px; 
         }
 
-        /* Estilo de los elementos dentro del contenedor */
-        .container {
-            max-width: 1200px; /* Ancho máximo */
-            margin: 0 auto; /* Centra el contenido */
-            padding: 0 15px; /* Espaciado interno */
-        }
-
-        /* Footer estilizado */
-        footer {
-            background-color: #004080; /* Mismo color que el navbar */
-            color: #ffffff; /* Texto blanco */
+  
+        footer
+        {
+            background-color: #004080;
+            color: #ffffff;
             text-align: center;
             padding: 10px 0;
             margin-top: 20px;
         }
 
-        footer p {
+        footer p
+        {
             margin: 0;
         }
 
-        /* Ajustes de la barra de navegación para pantallas pequeñas */
-        @media (max-width: 768px) {
-            .navbar .nav-link {
-                padding: 8px 10px; /* Ajuste de padding para pantallas pequeñas */
+       
+        @media (max-width: 768px) 
+        {
+            .navbar .nav-link 
+            {
+                padding: 8px 10px; 
             }
         }
     </style>
@@ -97,7 +102,6 @@
                 <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
                 <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
                 <asp:ScriptReference Name="WebFormsBundle" />
-                <%--Site Scripts--%>
             </Scripts>
         </asp:ScriptManager>
 

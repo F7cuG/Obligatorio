@@ -13,6 +13,7 @@ namespace Obligatorio
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (Session["UsuarioLogueado"] == null)
             {
                 Response.Redirect("Login.aspx");
@@ -170,64 +171,29 @@ namespace Obligatorio
         protected void RowUpdatingEvent(object sender, GridViewUpdateEventArgs e)
         {
             int rowIndexODT = e.RowIndex;
-            if (tablaODT.DataKeys != null && tablaODT.DataKeys[rowIndexODT] != null)
+            string numOrden = tablaODT.DataKeys[rowIndexODT].Values[0].ToString();
+            int numeroOrden = int.Parse(numOrden);
+
+            OrdenDeTrabajo ordenDeTrabajo = BaseDeDatos.listaOrdenesDeTrabajo.FirstOrDefault(c => c.NumeroOrden == numeroOrden);
+
+            if (ordenDeTrabajo != null)
             {
-                string numOrden = tablaODT.DataKeys[rowIndexODT].Values[0].ToString();
-                int numeroOrden = int.Parse(numOrden);
-                OrdenDeTrabajo ordenDeTrabajo = BaseDeDatos.listaOrdenesDeTrabajo.FirstOrDefault(c => c.NumeroOrden == numeroOrden);
+                GridViewRow row = tablaODT.Rows[rowIndexODT];
+                DropDownList ddlEdicionEstado = (DropDownList)row.FindControl("ddlEdicionEstado");
 
-                if (ordenDeTrabajo != null)
+                if (ddlEdicionEstado != null)
                 {
-                    GridViewRow row = tablaODT.Rows[rowIndexODT];
-
-                    TextBox clienteNombre = (TextBox)row.FindControl("txtClienteNombre");
-                    TextBox tecnicoNombre = (TextBox)row.FindControl("txtTecnicoNombre");
-                    TextBox descripcionProblema = (TextBox)row.FindControl("txtDescripcionProblema");
-                    DropDownList ddlEstadoEdit = (DropDownList)row.FindControl("ddlEdicionEstado");
-                    TextBox comentarios = (TextBox)row.FindControl("txtComentarios");
-
-                    if (clienteNombre != null && !string.IsNullOrWhiteSpace(clienteNombre.Text))
-                    {
-                        ordenDeTrabajo.ClienteOrden.Nombre = clienteNombre.Text.Trim();
-                    }
-                    if (tecnicoNombre != null && !string.IsNullOrWhiteSpace(tecnicoNombre.Text))
-                    {
-                        ordenDeTrabajo.TecnicoOrden.Nombre = tecnicoNombre.Text.Trim();
-                    }
-                    if (descripcionProblema != null && !string.IsNullOrWhiteSpace(descripcionProblema.Text))
-                    {
-                        ordenDeTrabajo.DescripcionProblema = descripcionProblema.Text.Trim();
-                    }
-                    if (ddlEstadoEdit != null)
-                    {
-                        ordenDeTrabajo.Estado = ddlEstadoEdit.SelectedValue;
-                    }
-                    if (comentarios != null && !string.IsNullOrWhiteSpace(comentarios.Text))
-                    {
-                        if (ordenDeTrabajo.ListaComentarios.Count > 0)
-                        {
-                            ordenDeTrabajo.ListaComentarios[0] = comentarios.Text.Trim();
-                        }
-                        else
-                        {
-                            ordenDeTrabajo.ListaComentarios.Add(comentarios.Text.Trim());
-                        }
-                    }
-
-                    tablaODT.EditIndex = -1;
-                    CargarTablaODT(sender, e);
-                    Session["ListaOrdenesDeTrabajo"] = BaseDeDatos.listaOrdenesDeTrabajo;
+                    ordenDeTrabajo.Estado = ddlEdicionEstado.SelectedValue;
                 }
-                else
-                {
-                    lblMensaje.Text = "No se encontró ninguna orden de trabajo con el número indicado.";
-                }
-            }
-            else
-            {
-                lblMensaje.Text = "Error: no se pudo obtener la clave de la fila seleccionada.";
+
+                tablaODT.EditIndex = -1;
+                CargarTablaODT(sender, e);
+                lblMensaje.Text = "Estado de la orden actualizado correctamente.";
+                lblMensaje.ForeColor = System.Drawing.Color.Green;
             }
         }
+
+
 
 
         protected void RowCancelingEditingEvent(object sender, GridViewCancelEditEventArgs e)

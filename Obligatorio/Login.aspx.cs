@@ -13,26 +13,38 @@ namespace Obligatorio
         {
             if (Session["UsuarioLogueado"] != null)
             {
-                Response.Redirect("Default.aspx"); // Redirige si ya está logueado
+                Response.Redirect("Default.aspx");
             }
         }
 
-        protected void btnLogin_Click(object sender, EventArgs e)
+        protected void Loguear(object sender, EventArgs e)
         {
-            string usuario = tbUsuario.Text.Trim();
-            string contraseña = tbContraseña.Text.Trim();
+            string usuarioIngresado = tbUsuario.Text.Trim();
+            string contraseñaIngresada = tbContraseña.Text.Trim();
 
-            var usuarioValido = BaseDeDatos.listaUsuarios.FirstOrDefault(u => u.NombreUsuario == usuario && u.Contraseña == contraseña);
+            var usuario = BaseDeDatos.listaUsuarios.FirstOrDefault(u => u.NombreUsuario == usuarioIngresado && u.Contraseña == contraseñaIngresada);
 
-            if (usuarioValido != null)
+            if (usuario != null)
             {
-                Session["UsuarioLogueado"] = usuarioValido.NombreUsuario;
-                Response.Redirect("Default.aspx");
+                Session["UsuarioLogueado"] = true; 
+                Session["ID"] = usuario.IdUsuario;
+                Session["Nombre"] = usuario.NombreUsuario;
+                Session["Rol"] = usuario.Rol;
+
+                Response.Redirect("~/Default.aspx");
             }
             else
             {
                 lblError.Text = "Usuario o contraseña incorrectos.";
             }
         }
+
+        protected void CerrarSesion(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Response.Redirect("Login.aspx");
+        }
     }
 }
+
+

@@ -35,41 +35,37 @@
 
     <h2 class="subtitulo">Lista de órdenes</h2>
     <asp:GridView ID="tablaODT" runat="server" AutoGenerateColumns="False" CssClass="styled-gridview"
-              OnRowUpdating="RowUpdatingEvent" OnRowCancelingEdit="RowCancelingEditingEvent" 
-              OnRowEditing="RowEditingEvent" OnRowDeleting="RowDeletingEvent" 
-              DataKeyNames="NumeroOrden">
-    <Columns>
-        <asp:CommandField ShowEditButton="true" ShowDeleteButton="true" />
-        <asp:BoundField DataField="NumeroOrden" HeaderText="Numero de orden" SortExpression="NumeroOrden"/>
-        <asp:BoundField DataField="ClienteOrden" HeaderText="Cliente" SortExpression="ClienteOrden"/>
-        <asp:BoundField DataField="TecnicoOrden" HeaderText="Técnico" SortExpression="TecnicoOrden"/>
-        <asp:BoundField DataField="DescripcionProblema" HeaderText="Descripción del problema" SortExpression="DescripcionProblema"/>
-        <asp:BoundField DataField="FechaCreacion" HeaderText="Fecha de creación" SortExpression="FechaCreacion"/>
-        <asp:TemplateField HeaderText="Estado" SortExpression="Estado">
-            <EditItemTemplate>
-                <asp:DropDownList ID="ddlEdicionEstado" runat="server" 
-                                  DataSource="<%#GetEstadoDataSource()%>" 
-                                  DataTextField="Nombre" 
-                                  DataValueField="Id" 
-                                  SelectedValue='<%#Eval("Estado")%>' 
-                                  CssClass="input-field">
-                </asp:DropDownList>
-            </EditItemTemplate>
-            <ItemTemplate>
-                <%#Eval("Estado")%>
-            </ItemTemplate>
-        </asp:TemplateField>
-        <asp:TemplateField HeaderText="Comentarios del técnico">
-            <EditItemTemplate>
-                <asp:TextBox ID="txtComentarios" runat="server" CssClass="input-field"></asp:TextBox>
-            </EditItemTemplate>
-            <ItemTemplate>
-                <%#Eval("ListaComentarios")%>
-            </ItemTemplate>
-        </asp:TemplateField>
-    </Columns>
-</asp:GridView>
-
+                  OnRowUpdating="RowUpdatingEvent" OnRowCancelingEdit="RowCancelingEditingEvent" 
+                  OnRowEditing="RowEditingEvent" OnRowDeleting="RowDeletingEvent" 
+                  DataKeyNames="NumeroOrden">
+        <Columns>
+            <asp:CommandField ShowEditButton="true" ShowDeleteButton="true" />
+            <asp:BoundField DataField="NumeroOrden" HeaderText="Numero de orden" SortExpression="NumeroOrden" ReadOnly="true" />
+            <asp:BoundField DataField="ClienteOrden" HeaderText="Cliente" SortExpression="ClienteOrden" ReadOnly="true" />
+            <asp:BoundField DataField="TecnicoOrden" HeaderText="Técnico" SortExpression="TecnicoOrden" ReadOnly="true" />
+            <asp:BoundField DataField="DescripcionProblema" HeaderText="Descripción del problema" SortExpression="DescripcionProblema" ReadOnly="true" />
+            <asp:BoundField DataField="FechaCreacion" HeaderText="Fecha de creación" SortExpression="FechaCreacion" ReadOnly="true" />
+            <asp:TemplateField HeaderText="Estado" SortExpression="Estado">
+                <EditItemTemplate>
+                    <asp:DropDownList ID="ddlEdicionEstado" runat="server"
+                                      DataSource="<%#GetEstadoDataSource()%>"
+                                      DataTextField="Nombre"
+                                      DataValueField="Id"
+                                      SelectedValue='<%#Eval("Estado")%>'
+                                      CssClass="input-field">
+                    </asp:DropDownList>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <%#Eval("Estado")%>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Comentarios del técnico">
+                <ItemTemplate>
+                    <%#Eval("ListaComentarios")%>
+                </ItemTemplate>
+            </asp:TemplateField>
+        </Columns>
+    </asp:GridView>
 
     <style>
         .titulo 
