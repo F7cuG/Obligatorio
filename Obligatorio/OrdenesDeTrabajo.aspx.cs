@@ -193,9 +193,6 @@ namespace Obligatorio
             }
         }
 
-
-
-
         protected void RowCancelingEditingEvent(object sender, GridViewCancelEditEventArgs e)
         {
             tablaODT.EditIndex = -1;

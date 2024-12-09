@@ -32,8 +32,7 @@ namespace Obligatorio
                 Session["Rol"] = usuario.Rol;
 
                 Response.Redirect("~/Default.aspx");
-            }
-            else
+            }            else
             {
                 lblError.Text = "Usuario o contraseña incorrectos.";
             }
